@@ -102,8 +102,8 @@
     </div>
     <!-- / Layout wrapper -->
 
-    <div class="buy-now">
-        <a href="#" class="btn btn-danger btn-buy-now">Up</a>
+    <div class="buy-now" id="btnUp">
+        <a href="#" class="btn btn-danger btn-buy-now btn-sm"><i class='bx bx-up-arrow-alt'></i></a>
     </div>
 
     <script>
@@ -131,6 +131,23 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var $btnUp = $('#btnUp').hide();
+        });
+
+        document.addEventListener('scroll', () => {
+            const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight
+
+            if (window.scrollY >= scrollableHeight) {
+                $("#btnUp").show();
+                console.log('User has scrolled to the bottom of the page!')
+            } else {
+                $("#btnUp").hide();
+            }
+        })
+    </script>
 </body>
 
 </html>
