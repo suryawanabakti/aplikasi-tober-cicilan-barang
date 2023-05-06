@@ -42,6 +42,14 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="/assets/js/config.js"></script>
+
+    <style>
+        @media only screen and (max-width: 600px) {
+            .td-name {
+                visibility: hidden;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -95,8 +103,12 @@
     <!-- / Layout wrapper -->
 
     <div class="buy-now">
-        <a href="#" target="_blank" class="btn btn-danger btn-buy-now">Up</a>
+        <a href="#" class="btn btn-danger btn-buy-now">Up</a>
     </div>
+
+    <script>
+        // window.scrollTo(xCoord, yCoord);
+    </script>
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
