@@ -3,13 +3,13 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Master Data /</span> <span
-                class="text-muted fw-light">Users /</span> Show</h4>
+                class="text-muted fw-light">Users /</span> Create</h4>
 
         <div class="row">
             <div class="col-md-12">
 
                 <div class="card mb-4">
-                    <h5 class="card-header">Profile Details</h5>
+                    <h5 class="card-header">Create a new User</h5>
                     <!-- Account -->
                     <div class="card-body">
                         <div class="d-flex align-items-start align-items-sm-center gap-4">

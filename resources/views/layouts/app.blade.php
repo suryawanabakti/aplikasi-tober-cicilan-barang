@@ -34,6 +34,9 @@
 
     <link rel="stylesheet" href="/assets/vendor/libs/apex-charts/apex-charts.css" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <!-- Page CSS -->
 
     <!-- Helpers -->
@@ -48,6 +51,10 @@
             .td-name {
                 visibility: hidden;
             }
+        }
+
+        * {
+            font-family: 'Poppins', sans-serif;
         }
     </style>
 </head>
@@ -74,20 +81,37 @@
                     @yield('content')
                     <!-- / Content -->
                     <!-- Footer -->
-                    <footer class="content-footer footer bg-footer-theme">
-                        <div
-                            class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                            <div class="mb-2 mb-md-0">
-                                ©
-                                <script>
-                                    document.write(new Date().getFullYear());
-                                </script>
-                                , Made with ❤️ by
-                                <a href="https://themeselection.com" target="_blank"
-                                    class="footer-link fw-bolder">Square</a>
+                    <!-- Footer with components -->
+                    <section id="component-footer">
+                        <footer class="footer bg-light">
+                            <div
+                                class="container-fluid d-flex flex-md-row flex-column justify-content-between align-items-md-center gap-1 container-p-x py-3">
+                                <div>
+                                    <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/landing/"
+                                        target="_blank" class="footer-text fw-bolder">Square</a>
+                                    ©
+                                </div>
+                                <div>
+                                    <div class="form-check form-control-sm footer-link me-3">
+                                        <input class="form-check-input" type="checkbox" value="" id="customCheck2"
+                                            checked />
+                                        <label class="form-check-label" for="customCheck2"> Show </label>
+                                    </div>
+                                    <div class="dropdown dropup footer-link me-3">
+                                        <a href="#" class="btn btn-sm btn-secondary dropdown-toggle"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Go at top
+                                        </a>
+
+                                    </div>
+
+                                    <a href="/logout" class="btn btn-sm btn-outline-danger "><i
+                                            class="bx bx-log-out-circle"></i> Logout</a>
+                                </div>
                             </div>
-                        </div>
-                    </footer>
+                        </footer>
+                    </section>
+                    <!--/ Footer with components -->
                     <!-- / Footer -->
 
                     <div class="content-backdrop fade"></div>
@@ -102,9 +126,6 @@
     </div>
     <!-- / Layout wrapper -->
 
-    <div class="buy-now" id="btnUp">
-        <a href="#" class="btn btn-danger btn-buy-now btn-sm"><i class='bx bx-up-arrow-alt'></i></a>
-    </div>
 
     <script>
         // window.scrollTo(xCoord, yCoord);

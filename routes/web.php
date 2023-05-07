@@ -26,6 +26,7 @@ Route::get('/admin/dashboard', function () {
 Route::middleware('auth')->group(function () {
 
     Route::get('/admin/master-data/users', [UserController::class, 'index'])->name('admin.users.index');
+    Route::get('/admin/master-data/users/create', [UserController::class, 'create'])->name('admin.users.create');
     Route::get('/admin/master-data/users/{user}', [UserController::class, 'show'])->name('admin.users.show');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

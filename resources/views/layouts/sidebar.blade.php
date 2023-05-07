@@ -75,8 +75,8 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="{{ route('admin.users.index') }}" class="menu-link">
-                        <div data-i18n="Without menu">Role</div>
+                    <a href="#" class="menu-link">
+                        <div data-i18n="Without menu">None</div>
                     </a>
                 </li>
 

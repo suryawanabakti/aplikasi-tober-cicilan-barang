@@ -7,15 +7,32 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <h5 class="card-header">Users Table</h5>
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <a class="btn btn-primary" href="{{ route('admin.users.create') }}">+ Add Data</a>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group input-group-merge">
+                                    <span class="input-group-text" id="basic-addon-search31"><i
+                                            class="bx bx-search"></i></span>
+                                    <input type="text" class="form-control" placeholder="Search..."
+                                        aria-label="Search..." aria-describedby="basic-addon-search31">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
                     <div class="table-responsive text-nowrap">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Roles</th>
+                                    <th>Position</th>
                                     <th>Status</th>
+                                    <th>Last Seen</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -31,22 +48,24 @@
                                                         <img src="/assets/img/avatars/5.png" alt="Avatar"
                                                             class="rounded-circle" />
                                                         <strong
-                                                            class="text-sm td-name">{{ Str::limit($user->name, 25) }}</strong>
+                                                            class="text-sm td-name">{{ Str::limit($user->name, 12) }}</strong>
                                                     </div>
                                                 </a>
                                             </div>
 
                                         </td>
                                         <td>{{ $user->email }}</td>
-
-
                                         <td>
-                                            @foreach ($user->roles as $role)
-                                                {{ $role->name }}
-                                            @endforeach
-
+                                            {{ $user->position }}
                                         </td>
-                                        <td><span class="badge bg-label-primary me-1">Active</span></td>
+                                        <td>
+                                            @if (Cache::has('user-is-online-' . $user->id))
+                                                <span class="badge bg-label-success me-1">Online</span>
+                                            @else
+                                                <span class="badge bg-label-danger me-1">Offline</span>
+                                            @endif
+                                        </td>
+                                        <td>{{ \Carbon\Carbon::createFromDate($user->created_at)->diffForHumans() }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow"

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Str;
@@ -18,13 +19,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = \App\Models\User::factory()->create([
+        $user = \App\Models\User::create([
             // 'id' => Str::uuid(),
             'name' => 'Surya Wana Bakti',
             'email' => 'surya@square',
+            'password' => bcrypt('qwerty123'),
+            'last_seen' => Carbon::now(),
+            'position' => 'super admin'
         ]);
 
-        $user = \App\Models\User::factory(1000)->create();
+        $usera = \App\Models\User::factory(5)->create();
 
 
 
