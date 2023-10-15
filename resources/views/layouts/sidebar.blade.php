@@ -45,7 +45,7 @@
                     </g>
                 </svg>
             </span>
-            <span class="app-brand-text demo menu-text fw-bolder ms-2">square</span>
+            <span class="app-brand-text demo menu-text fw-bolder ms-2">Tober</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -54,48 +54,101 @@
     </div>
     <div class="menu-inner-shadow"></div>
     <ul class="menu-inner py-1">
+        @role('admin')
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Menu Admin</span></li>
+            <li class="menu-item {{ Request::is('admin/dashboard') ? 'active open' : '' }}">
+                <a href="{{ route('admin.dashboard') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                    <div data-i18n="Dashboard">Dashboard</div>
+                </a>
+            </li>
 
-        <li class="menu-item {{ Request::is('admin/dashboard') ? 'active open' : '' }}">
-            <a href="{{ route('dashboard') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
-            </a>
-        </li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Main Menu</span></li>
+            <li class="menu-item {{ Request::is('admin/master-data*') ? 'active open' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-layout"></i>
+                    <div data-i18n="Layouts">Master Data</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ Request::is('admin/master-data/customers*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.customers.index') }}" class="menu-link">
+                            <div data-i18n="Customers">Customers</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ Request::is('admin/master-data/pimpinan*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.pimpinan.index') }}" class="menu-link">
+                            <div data-i18n="Pimpinan">Pimpinan</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ Request::is('admin/master-data/barang*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.barang.index') }}" class="menu-link">
+                            <div data-i18n="Barang">Barang</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Main Menu</span></li>
-        <li class="menu-item {{ Request::is('admin/master-data*') ? 'active open' : '' }}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-layout"></i>
-                <div data-i18n="Layouts">Master Data</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item {{ Request::is('admin/master-data/users*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.users.index') }}" class="menu-link">
-                        <div data-i18n="Without menu">Users</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
-                        <div data-i18n="Without menu">None</div>
-                    </a>
-                </li>
-
-            </ul>
-        </li>
-
-        <!-- Misc -->
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
-        <li class="menu-item">
-            <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-support"></i>
-                <div data-i18n="Support">Support</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-file"></i>
-                <div data-i18n="Documentation">Documentation</div>
-            </a>
-        </li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Transaction</span></li>
+            <li class="menu-item {{ Request::is('admin/pesanan*') ? 'active' : '' }}">
+                <a href="{{ route('admin.pesanan.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-transfer-alt"></i>
+                    <div data-i18n="Pesanan">Pesanan</div>
+                </a>
+            </li>
+            <li class="menu-item {{ Request::is('admin/pembayaran*') ? 'active' : '' }}">
+                <a href="{{ route('admin.pembayaran.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-credit-card-alt"></i>
+                    <div data-i18n="Pembayaran">Pembayaran</div>
+                </a>
+            </li>
+        @endrole
+        @role('customer')
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Menu Customer</span></li>
+            <li class="menu-item {{ Request::is('customer/dashboard') ? 'active open' : '' }}">
+                <a href="{{ route('customer.dashboard') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                    <div data-i18n="Dashboard">Dashboard</div>
+                </a>
+            </li>
+            <li class="menu-item {{ Request::is('customer/barang*') ? 'active' : '' }}">
+                <a href="{{ route('customer.barang.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-box"></i>
+                    <div data-i18n="barang">Barang</div>
+                </a>
+            </li>
+            <li class="menu-item {{ Request::is('customer/pesanan/create') ? 'active' : '' }}">
+                <a href="{{ route('customer.pesanan.create') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-credit-card"></i>
+                    <div data-i18n="pesanan">Pengajuan Kredit</div>
+                </a>
+            </li>
+            <li class="menu-item {{ Request::is('customer/pesanan') ? 'active' : '' }}">
+                <a href="{{ route('customer.pesanan.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-transfer-alt"></i>
+                    <div data-i18n="pesanan">Pesanan</div>
+                </a>
+            </li>
+            <li class="menu-item {{ Request::is('customer/pembayaran') ? 'active' : '' }}">
+                <a href="{{ route('customer.pembayaran.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-money"></i>
+                    <div data-i18n="pembayaran">Pembayaran</div>
+                </a>
+            </li>
+        @endrole
+        @role('pimpinan')
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Menu Pimpinan</span></li>
+            <li class="menu-item {{ Request::is('pimpinan/dashboard') ? 'active open' : '' }}">
+                <a href="{{ route('pimpinan.dashboard') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                    <div data-i18n="Dashboard">Dashboard</div>
+                </a>
+            </li>
+            <li class="menu-item {{ Request::is('laporan/pesanan*') ? 'active' : '' }}">
+                <a href="{{ route('laporan.pesanan.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-transfer-alt"></i>
+                    <div data-i18n="laporan">Laporan </div>
+                </a>
+            </li>
+        @endrole
     </ul>
 </aside>

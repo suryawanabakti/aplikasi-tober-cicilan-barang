@@ -7,26 +7,35 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Str;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
-     * The "booting" function of model
+     * The attributes that are mass assignable.
      *
-     * @return void
+     * @var array<int, string>
      */
+
+    public $with = ['roles'];
+
+
     protected static function boot()
     {
         parent::boot();
-        static::creating(function ($model) {
-            if (!$model->getKey()) {
-                $model->{$model->getKeyName()} = (string) Str::uuid();
-            }
+
+        // auto-sets values on creation
+        static::creating(function ($query) {
+            $query->uuid =  (string) Str::uuid();
         });
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
     }
 
     /**
@@ -49,11 +58,7 @@ class User extends Authenticatable
         return 'string';
     }
 
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for serialization.

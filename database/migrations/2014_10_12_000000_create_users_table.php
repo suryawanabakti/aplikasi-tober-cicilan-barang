@@ -13,20 +13,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
+            $table->uuid('uuid')->unique();
             $table->string('name');
+            $table->string('nama_toko')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('position')->default('employee');
-            $table->text('address')->nullable();
-            $table->string('state')->nullable();
-            $table->string('zip_code')->nullable();
-            $table->string('country')->nullable();
+            $table->text('alamat')->nullable();
             $table->string('phone')->nullable();
-            $table->string('language')->nullable();
-            $table->string('timezone')->nullable();
-            $table->string('currency')->nullable();
             $table->timestamp('last_seen')->default(Carbon::now());
             $table->rememberToken();
             $table->timestamps();

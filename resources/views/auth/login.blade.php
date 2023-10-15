@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Login Basic - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Login Page | Tober</title>
 
     <meta name="description" content="" />
 
@@ -75,7 +75,7 @@
             <div class="card-body">
               <!-- Logo -->
               <div class="app-brand justify-content-center">
-                <a href="index.html" class="app-brand-link gap-2">
+                <a href="/" class="app-brand-link gap-2">
                   <span class="app-brand-logo demo">
                     <svg
                       width="25"
@@ -131,11 +131,11 @@
                       </g>
                     </svg>
                   </span>
-                  <span class="app-brand-text demo text-body fw-bolder">Square</span>
+                  <span class="app-brand-text demo text-body fw-bolder">Tober</span>
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-2">Welcome to Square! 👋</h4>
+              <h4 class="mb-2">Welcome to Tober! 👋</h4>
               <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
               <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -182,9 +182,9 @@
               </form>
 
               <p class="text-center">
-                <span>New on our platform?</span>
-                <a href="auth-register-basic.html">
-                  <span>Create an account</span>
+                <span>Belum memiliki akun?</span>
+                <a href="/register">
+                  <span>Buat akun baru 🚀</span>
                 </a>
               </p>
             </div>
