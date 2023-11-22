@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Pesanan;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,15 +12,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pesanan', function (Blueprint $table) {
+        Schema::create('keranjang', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Pesanan::class)->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->unsignedBigInteger('total_bayar');
-            $table->enum('status', ['proses', 'diterima'])->default('proses');
-            $table->enum('status_pembayaran', ['belum lunas', 'lunas'])->default('belum lunas');
-            $table->tinyInteger('hidden')->default(0);
-            $table->date('jatuh_tempo')->nullable();
+            $table->unsignedBigInteger('barang_id');
+            $table->foreign('barang_id')->references('id')->on('barang')->cascadeOnDelete();
+            $table->integer('jumlah');
+            $table->bigInteger('total');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pesanans');
+        Schema::dropIfExists('keranjangs');
     }
 };

@@ -16,6 +16,11 @@ class Pesanan extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function keranjang()
+    {
+        return $this->hasMany(Keranjang::class);
+    }
+
     public function barang()
     {
         return $this->belongsTo(Barang::class);

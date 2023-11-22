@@ -1,20 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    @php
-        function statusPembayaran($status)
-        {
-            if ($status === 'diproses') {
-                return '<span class="badge bg-warning">proses</span>';
-            }
-            if ($status === 'diterima') {
-                return '<span class="badge bg-success">diterima</span>';
-            }
-            if ($status === 'ditolak') {
-                return '<span class="badge bg-danger">ditolak</span>';
-            }
-        }
-    @endphp
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Pembayaran</h4>
 
@@ -38,20 +24,30 @@
                                     @foreach ($pembayaranPembayaran as $pembayaran)
                                         <tr>
                                             <td>{{ $pembayaran->user->name }}</td>
-                                            <td>{{ $pembayaran->pesanan->barang->nama }},{{ $pembayaran->pesanan->jumlah }}
-                                                {{ $pembayaran->pesanan->barang->satuan }}
+                                            <td>
+                                                @foreach ($pembayaran->pesanan->keranjang as $keranjang)
+                                                    <div>{{ $keranjang->barang->nama }} * {{ $keranjang->jumlah }} =
+                                                        {{ number_format($keranjang->total) }}</div>
+                                                @endforeach
                                             </td>
 
                                             <td>
                                                 <a target="_blank"
                                                     href="/storage/{{ $pembayaran->bukti_transfer }}">Lihat</a>
                                             </td>
-                                            <td>{!! statusPembayaran($pembayaran->status) !!}</td>
+                                            <td>{{ $pembayaran->status }}</td>
                                             <td>
                                                 <a href="{{ route('admin.pembayaran.terima', $pembayaran->id) }}"
                                                     class="btn btn-success btn-sm">Terima</a>
                                                 <a href="{{ route('admin.pembayaran.tolak', $pembayaran->id) }}"
                                                     class="btn btn-danger btn-sm">Tolak</a>
+
+                                                @if ($pembayaran->status == 'diterima')
+                                                    <a onclick="return confirm('Apakah anda yaking menghapus hutang ini?')"
+                                                        href="{{ route('admin.pembayaran.hapus-utang', $pembayaran->id) }}"
+                                                        class="btn btn-primary btn-sm">Hapus Hutang</a>
+                                                @endif
+
                                             </td>
                                         </tr>
                                     @endforeach

@@ -152,28 +152,46 @@
 @endforeach
 @endif
 
-              <form id="formAuthentication" class="mb-3" action="{{ route('register') }}" method="POST">
+              <form id="formAuthentication" class="mb-3" action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="nama" class="form-label">Nama</label>
-                        <input type="text" class="form-control" name="name">
+                        <input type="text" class="form-control" required name="name">
                     </div>
                     <div class="col-md-6">
-                        <label for="alamat" class="form-label">Alamat</label>
-                        <input type="text" class="form-control" name="alamat">
+                      <label for="nik" class="form-label">Nik</label>
+                      <input type="text" class="form-control" required name="nik">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                      <label for="" class="form=-label">Alamat</label>
+                      <textarea name="alamat" id="alamat" cols="15" rows="2" class="form-control" required></textarea>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <x-input-label for="email" class="form-label" :value="__('Email or Username')" />
-                        <x-text-input id="email" class="form-control" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                        <x-text-input id="email" class="form-control" required type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
                         <x-input-error :messages="$errors->get('email')" class="mt-2 text-danger fs-6" />
                     </div>
                     <div class="col-md-6">
                         <label for="phone" class="form-label">Phone</label>
-                        <input type="text" class="form-control" name="phone" placeholder="085123123123">
+                        <input type="text" class="form-control" required name="phone" placeholder="085123123123">
                     </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <x-input-label for="ktp" class="form-label" :value="__('ktp')" />
+                        <x-text-input id="ktp" class="form-control" required type="file" name="ktp" :value="old('ktp')" required  />
+                        <x-input-error :messages="$errors->get('ktp')" class="mt-2 text-danger fs-6" />
+                    </div>
+                    <div class="col-md-6">
+                      <x-input-label for="foto" class="form-label" :value="__('foto')" />
+                      <x-text-input id="foto" class="form-control" required type="file" name="foto" :value="old('foto')" required  />
+                      <x-input-error :messages="$errors->get('foto')" class="mt-2 text-danger fs-6" />
+                  </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6 form-password-toggle">
@@ -181,7 +199,7 @@
                             <x-input-label for="password" class="form-label" :value="__('Password')" />
                         </div>
                         <div class="input-group input-group-merge">
-                            <x-text-input id="password" class="form-control"
+                            <x-text-input id="password" class="form-control" required
                             type="password"
                             
                             name="password"
@@ -197,7 +215,7 @@
                             <x-input-label for="password" class="form-label" :value="__('Password Konfirmasi')" />
                         </div>
                         <div class="input-group input-group-merge">
-                            <x-text-input id="password" class="form-control"
+                            <x-text-input id="password" class="form-control" required
                             type="password"
                             name="password_confirmation"
                             placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"

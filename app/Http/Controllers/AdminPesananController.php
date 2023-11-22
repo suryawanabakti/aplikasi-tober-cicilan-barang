@@ -13,7 +13,7 @@ class AdminPesananController extends Controller
 {
     public function index()
     {
-        $pesananPesanan = Pesanan::orderBy('created_at', 'desc')->get();
+        $pesananPesanan = Pesanan::where('hidden', false)->orderBy('created_at', 'desc')->get();
         return view('admin.pesanan.index', compact('pesananPesanan'));
     }
 
@@ -26,10 +26,10 @@ class AdminPesananController extends Controller
             'status' => 'diterima',
             'jatuh_tempo' => $request->jatuh_tempo
         ]);
-        $barang = Barang::where('id', $pesanan->barang_id)->first();
+
         $user =  User::where('id', $pesanan->user_id)->first();
         $tanggal = Carbon::createFromDate($request->jatuh_tempo)->format('d M Y');
-        Controller::sendWa($user->phone, "Pesanan $barang->name diterima ✅. jatuh tempo tanggal  $tanggal");
+        Controller::sendWa($user->phone, "Pesanan  diterima ✅. jatuh tempo tanggal  $tanggal");
         Alert::success("Berhasil", "Berhasil Menerima Pesanan Ini");
         return back();
     }

@@ -25,7 +25,7 @@ class AdminDashboardController extends Controller
     {
         $totalCustomer = User::role('customer')->count();
         $totalBarang = Barang::count();
-        $totalPesanan = Pesanan::count();
+        $totalPesanan = Pesanan::where('hidden', false)->count();
         $totalPembayaranProses = Pembayaran::where('status', 'diproses')->count();
 
         $hariSekarang = Carbon::now('GMT+8')->addDay(1)->format('Y-m-d');

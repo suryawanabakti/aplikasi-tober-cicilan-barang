@@ -54,7 +54,7 @@
     </div>
     <div class="menu-inner-shadow"></div>
     <ul class="menu-inner py-1">
-        @role('admin')
+        @role(['admin', 'super-admin'])
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Menu Admin</span></li>
             <li class="menu-item {{ Request::is('admin/dashboard') ? 'active open' : '' }}">
                 <a href="{{ route('admin.dashboard') }}" class="menu-link">
@@ -135,14 +135,23 @@
                 </a>
             </li>
         @endrole
-        @role('pimpinan')
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Menu Pimpinan</span></li>
-            <li class="menu-item {{ Request::is('pimpinan/dashboard') ? 'active open' : '' }}">
-                <a href="{{ route('pimpinan.dashboard') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                    <div data-i18n="Dashboard">Dashboard</div>
-                </a>
-            </li>
+        @role(['pimpinan', 'super-admin'])
+            @role('pimpinan')
+                <li class="menu-header small text-uppercase"><span class="menu-header-text">Menu Pimpinan</span></li>
+                <li class="menu-item {{ Request::is('pimpinan/dashboard') ? 'active open' : '' }}">
+                    <a href="{{ route('pimpinan.dashboard') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                        <div data-i18n="Dashboard">Dashboard</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ Request::is('admin/master-data/customers*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.customers.index') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-user"></i>
+                        <div data-i18n="Customers">Customers</div>
+                    </a>
+                </li>
+            @endrole
+
             <li class="menu-item {{ Request::is('laporan/pesanan*') ? 'active' : '' }}">
                 <a href="{{ route('laporan.pesanan.index') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-transfer-alt"></i>

@@ -36,13 +36,20 @@ class DatabaseSeeder extends Seeder
             'last_seen' => Carbon::now(),
         ]);
 
-
+        $superAdmin = \App\Models\User::create([
+            'name' => 'Super Admin',
+            'email' => 'admin@super',
+            'password' => bcrypt('qwerty123'),
+            'last_seen' => Carbon::now(),
+        ]);
 
         $roleAdmin = Role::create(['name' => 'admin']);
+        $roleSuper = Role::create(['name' => 'super-admin']);
         $rolePimpinan = Role::create(['name' => 'pimpinan']);
         $roleCustomer = Role::create(['name' => 'customer']);
 
         $user->assignRole($roleAdmin);
         $pimpinan->assignRole($rolePimpinan);
+        $superAdmin->assignRole($roleSuper);
     }
 }

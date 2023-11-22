@@ -15,7 +15,6 @@ class AdminBarangController extends Controller
 
     public function store(Request $request)
     {
-
         $validatedData = $request->validate([
             'kode' => ['required'],
             'nama' => ['required'],
@@ -24,15 +23,12 @@ class AdminBarangController extends Controller
             'stok' => ['required'],
             'gambar' => ['image', 'mimes:png,jpeg,jpg']
         ]);
-
         if ($request->gambar) {
             $imageName = time() . '.' . $request->gambar->extension();
             $request->gambar->move(public_path('storage/gambar'), $imageName);
             $validatedData['gambar'] = 'gambar/' . $imageName;
         }
-
         Barang::create($validatedData);
-
         return back();
     }
 

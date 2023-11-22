@@ -28,29 +28,25 @@
             <tr>
                 <th>Tanggal</th>
                 <th>Toko</th>
-                <th>Barang</th>
-                <th>Harga</th>
-                <th>Jumlah</th>
-                <th>Total Bayar</th>
+                <th>Daftar Barang</th>
 
+                <th>Total Bayar</th>
             </tr>
         </thead>
         <tbody class="table-border-bottom-0">
             @foreach ($pesananPesanan as $pesanan)
-                @php
-                    $sisaBayar = $pesanan->total_bayar - $pesanan->pembayaran->sum('jumlah_bayar');
-                @endphp
-                @if ($sisaBayar <= 0)
-                    <tr>
-                        <td>{{ $pesanan->created_at->format('d M Y') }}</td>
-                        <td>{{ $pesanan->user->nama_toko }}</td>
-                        <td>{{ $pesanan->barang->nama }}</td>
-                        <td>Rp.{{ number_format($pesanan->barang->harga) }}</td>
-                        <td>{{ $pesanan->jumlah }}</td>
-                        <td>Rp.{{ number_format($pesanan->total_bayar) }}</td>
+                <tr>
+                    <td>{{ $pesanan->created_at->format('d M Y') }}</td>
+                    <td>{{ $pesanan->user->name }}</td>
+                    <td>
+                        @foreach ($pesanan->keranjang as $keranjang)
+                            <div>{{ $keranjang->barang->nama }} * {{ $keranjang->jumlah }} =
+                                {{ number_format($keranjang->total) }}</div>
+                        @endforeach
+                    </td>
 
-                    </tr>
-                @endif
+                    <td>Rp.{{ number_format($pesanan->total_bayar) }}</td>
+                </tr>
             @endforeach
         </tbody>
     </table>

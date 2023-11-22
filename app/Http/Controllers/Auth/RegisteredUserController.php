@@ -36,8 +36,20 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'alamat' => ['required'],
-            'phone' => ['required']
+            'phone' => ['required'],
+            'nik' => ['required']
         ]);
+
+        if ($request->foto) {
+            $imageName = time() . '.' . $request->foto->extension();
+            $request->foto->move(public_path('storage/foto'), $imageName);
+            $foto = 'foto/' . $imageName;
+        }
+        if ($request->ktp) {
+            $imageName = time() . '.' . $request->ktp->extension();
+            $request->ktp->move(public_path('storage/ktp'), $imageName);
+            $ktp = 'ktp/' . $imageName;
+        }
 
         $user = User::create([
             'name' => $request->name,
@@ -45,14 +57,13 @@ class RegisteredUserController extends Controller
             'phone' => $request->phone,
             'alamat' => $request->alamat,
             'password' => Hash::make($request->password),
+            'nik' => $request->nik,
+            'foto' => $foto,
+            'ktp' => $ktp
         ]);
-
         event(new Registered($user));
-
         Auth::login($user);
-
         $user->assignRole('customer');
-
         return redirect(RouteServiceProvider::CUSTOMER_DASHBOARD);
     }
 }

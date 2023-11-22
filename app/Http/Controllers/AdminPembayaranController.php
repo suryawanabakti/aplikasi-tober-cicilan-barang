@@ -11,7 +11,9 @@ class AdminPembayaranController extends Controller
 {
     public function index()
     {
-        $pembayaranPembayaran = Pembayaran::orderBy('created_at', 'desc')->get();
+        $pembayaranPembayaran = Pembayaran::whereHas('pesanan', function ($query) {
+            $query->where('hidden', false);
+        })->orderBy('created_at', 'desc')->get();
         return view('admin.pembayaran.index', compact('pembayaranPembayaran'));
     }
 
@@ -34,6 +36,16 @@ class AdminPembayaranController extends Controller
         $pembayaran->update([
             'status' => 'ditolak'
         ]);
+        return back();
+    }
+
+    public function hapusHutang(Pembayaran $pembayaran)
+    {
+
+        Pesanan::where('id', $pembayaran->pesanan_id)->update([
+            'hidden' => true
+        ]);
+
         return back();
     }
 }

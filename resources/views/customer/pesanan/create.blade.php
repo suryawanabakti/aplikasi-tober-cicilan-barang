@@ -2,10 +2,19 @@
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4">Pengajuan Kredit</h4>
+        <div class="d-flex justify-content-between">
+            <h4 class="fw-bold py-3 mb-4">Pengajuan Kredit</h4>
+            <div class="mt-2">
+                <a href="/customer/pesanan/keranjang" class="btn btn-primary mb-3 ">Keranjang
+                    ({{ DB::table('keranjang')->where('user_id', auth()->id())->count() }})
+                </a>
+            </div>
+
+        </div>
 
         <div class="row">
             <div class="col-md-12">
+
                 <div class="card">
                     <div class="card-body">
                         <form action="{{ route('customer.pesanan.store') }}" method="POST">
@@ -13,7 +22,9 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="alert alert-warning" role="alert">
-                                        Minimal Pesanan Rp.2.000.000
+                                        <b>SYARAT PENGAJUAN : </b> <br>
+                                        - Minimal Pesanan Rp.2.000.000 <br>
+                                        - Sudah Belanja Cash Minimal 3 kali <br>
                                     </div>
                                 </div>
                             </div>
@@ -33,7 +44,7 @@
                                     <input type="number" class="form-control" name="jumlah">
                                 </div>
                             </div>
-                            <button class="btn btn-primary" type="submit">Ajukan 🚀</button>
+                            <button class="btn btn-primary" type="submit">Tambah Ke Keranjang 🚀</button>
                         </form>
                     </div>
                 </div>

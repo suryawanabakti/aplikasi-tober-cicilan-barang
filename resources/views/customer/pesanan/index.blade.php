@@ -1,21 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    @php
-        function statusPembayaran($status)
-        {
-            if ($status === 'diproses') {
-                return '<span class="badge bg-warning">proses</span>';
-            }
-            if ($status === 'diterima') {
-                return '<span class="badge bg-success">diterima</span>';
-            }
-            if ($status === 'ditolak') {
-                return '<span class="badge bg-danger">ditolak</span>';
-            }
-        }
-    @endphp
-
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Pesanan</h4>
 
@@ -30,9 +15,7 @@
                                         <th>Action</th>
                                         <th>Tanggal</th>
                                         <th>Jatuh Tempo</th>
-                                        <th>Barang</th>
-                                        <th>Harga</th>
-                                        <th>Jumlah</th>
+                                        <th>Daftar Barang</th>
                                         <th>Total Bayar</th>
 
                                         <th>Status</th>
@@ -73,13 +56,7 @@
                                                                                     value="{{ now()->format('Y-m-d') }}"
                                                                                     readonly>
                                                                             </div>
-                                                                            <div class="mb-3">
-                                                                                <label for=""
-                                                                                    class="form-label">Barang</label>
-                                                                                <input readonly type="text"
-                                                                                    value="{{ $pesanan->barang->nama }} - {{ $pesanan->jumlah }} {{ $pesanan->barang->satuan }}"
-                                                                                    class="form-control">
-                                                                            </div>
+
 
                                                                             <div class="mb-3">
                                                                                 <label for=""
@@ -139,7 +116,7 @@
                                                                                         href="/storage/{{ $pembayaran->bukti_transfer }}">Lihat</a>
                                                                                 </td>
                                                                                 <td>
-                                                                                    {!! statusPembayaran($pembayaran->status) !!}
+                                                                                    {{ $pembayaran->status }}
                                                                                 </td>
                                                                             </tr>
                                                                         @endforeach
@@ -153,9 +130,13 @@
                                             <td>{{ $pesanan->created_at->format('d M Y') }}</td>
                                             <td>{{ \Carbon\Carbon::createFromDate($pesanan->jatuh_tempo)->format('d M Y') ?? '-' }}
                                             </td>
-                                            <td>{{ $pesanan->barang->nama }}</td>
-                                            <td>Rp.{{ number_format($pesanan->barang->harga) }}</td>
-                                            <td>{{ $pesanan->jumlah }}</td>
+                                            <td>
+                                                @foreach ($pesanan->keranjang as $keranjang)
+                                                    <div>{{ $keranjang->barang->nama }} * {{ $keranjang->jumlah }} =
+                                                        {{ number_format($keranjang->total) }}</div>
+                                                @endforeach
+                                            </td>
+
                                             <td>Rp.{{ number_format($pesanan->total_bayar) }}</td>
                                             <td>{{ $pesanan->status }}</td>
                                         </tr>

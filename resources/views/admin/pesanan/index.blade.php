@@ -1,21 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    @php
-        function statusPembayaran($status)
-        {
-            if ($status === 'diproses') {
-                return '<span class="badge bg-warning">proses</span>';
-            }
-            if ($status === 'diterima') {
-                return '<span class="badge bg-success">diterima</span>';
-            }
-            if ($status === 'ditolak') {
-                return '<span class="badge bg-danger">ditolak</span>';
-            }
-        }
-    @endphp
-
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Pesanan</h4>
 
@@ -31,9 +16,8 @@
                                         <th>Tanggal</th>
                                         <th>Jatuh Tempo</th>
                                         <th>Customer</th>
-                                        <th>Barang</th>
-                                        <th>Harga</th>
-                                        <th>Jumlah</th>
+                                        <th>Daftar Barang</th>
+
                                         <th>Total Bayar</th>
                                         <th>Sisa Bayar</th>
                                         <th>Status</th>
@@ -119,7 +103,7 @@
                                                                                             href="/storage/{{ $pembayaran->bukti_transfer }}">Lihat</a>
                                                                                     </td>
                                                                                     <td>
-                                                                                        {!! statusPembayaran($pembayaran->status) !!}
+                                                                                        {{ $pembayaran->status }}
                                                                                     </td>
                                                                                 </tr>
                                                                             @endforeach
@@ -135,9 +119,13 @@
                                             <td>{{ \Carbon\Carbon::createFromDate($pesanan->jatuh_tempo)->format('d M Y') ?? '-' }}
                                             </td>
                                             <td>{{ $pesanan->user->name }}</td>
-                                            <td>{{ $pesanan->barang->nama }}</td>
-                                            <td>Rp.{{ number_format($pesanan->barang->harga) }}</td>
-                                            <td>{{ $pesanan->jumlah }}</td>
+                                            <td>
+                                                @foreach ($pesanan->keranjang as $keranjang)
+                                                    <div>{{ $keranjang->barang->nama }} * {{ $keranjang->jumlah }} =
+                                                        {{ number_format($keranjang->total) }}</div>
+                                                @endforeach
+                                            </td>
+
                                             <td>Rp.{{ number_format($pesanan->total_bayar) }}</td>
                                             <td>Rp.
                                                 {{ number_format($pesanan->total_bayar - $pesanan->pembayaran->where('status', 'diterima')->sum('jumlah_bayar')) }}

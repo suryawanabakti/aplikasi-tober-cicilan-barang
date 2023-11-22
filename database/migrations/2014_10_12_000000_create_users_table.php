@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
+            $table->string('nik')->nullable();
             $table->string('name');
             $table->string('nama_toko')->nullable();
             $table->string('email')->unique();
@@ -23,6 +24,8 @@ return new class extends Migration
             $table->text('alamat')->nullable();
             $table->string('phone')->nullable();
             $table->timestamp('last_seen')->default(Carbon::now());
+            $table->string('ktp')->nullable();
+            $table->string('foto')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -40,6 +40,9 @@
                                             <select name="satuan" id="satuan" class="form-select">
                                                 <option value="pcs">Pieces</option>
                                                 <option value="kilogram">Kilogram</option>
+                                                <option value="pak">Pak</option>
+                                                <option value="dos">Dos</option>
+                                                <option value="zak">Zak</option>
                                             </select>
                                         </div>
                                         <div class="col-md-6">

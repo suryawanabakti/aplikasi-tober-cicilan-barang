@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('kode')->unique();
             $table->string('nama');
-            $table->enum('satuan', ['pcs', 'kilogram']);
+            $table->enum('satuan', ['pcs', 'kilogram', 'pak', 'dos', 'zak']);
             $table->bigInteger('harga');
             $table->integer('stok');
             $table->string('gambar');

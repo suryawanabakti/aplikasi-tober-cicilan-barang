@@ -33,7 +33,7 @@ Route::get('/admin/kirim-pesan-jatuh-tempo', [AdminDashboardController::class, '
 Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('admin.dashboard');
 
 Route::get('/customer/dashboard', function () {
-    $totalPesanan  = Pesanan::where('user_id', auth()->id())->count();
+    $totalPesanan  = Pesanan::where('hidden', false)->where('user_id', auth()->id())->count();
     $pembayaranProses  = Pembayaran::where('user_id', auth()->id())->where('status', 'diproses')->count();
     return view('customer.dashboard', compact('pembayaranProses', 'totalPesanan'));
 })->middleware(['auth', 'verified'])->name('customer.dashboard');
@@ -64,14 +64,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/pembayaran', [AdminPembayaranController::class, 'index'])->name('admin.pembayaran.index');
     Route::get('/admin/pembayaran/{pembayaran}/terima', [AdminPembayaranController::class, 'terima'])->name('admin.pembayaran.terima');
     Route::get('/admin/pembayaran/{pembayaran}/tolak', [AdminPembayaranController::class, 'tolak'])->name('admin.pembayaran.tolak');
+    Route::get('/admin/pembayaran/{pembayaran}/hapus-utang', [AdminPembayaranController::class, 'hapusHutang'])->name('admin.pembayaran.hapus-utang');
 
     // Customer
     Route::get('/customer/barang', [CustomerBarangController::class, 'index'])->name('customer.barang.index');
 
     Route::get('/customer/pesanan', [CustomerPesananController::class, 'index'])->name('customer.pesanan.index');
+    Route::get('/customer/pesanan/keranjang', [CustomerPesananController::class, 'keranjang'])->name('customer.pesanan.keranjang');
+    Route::get('/keranjang/delete/{keranjang}', [CustomerPesananController::class, 'deleteKeranjang'])->name('customer.pesanan.keranjang.delete');
     Route::get('/customer/pesanan/create', [CustomerPesananController::class, 'create'])->name('customer.pesanan.create');
     Route::post('/customer/pesanan', [CustomerPesananController::class, 'store'])->name('customer.pesanan.store');
+    Route::get('/customer/pesanan-store', [CustomerPesananController::class, 'storeTransaksi'])->name('customer.pesanan.store-pesanan');
     Route::get('/customer/pesanan/{pesanan}/delete', [CustomerPesananController::class, 'destroy'])->name('customer.pesanan.destroy');
+
+
 
     Route::get('/customer/pembayaran', [CustomerPembayaranController::class, 'index'])->name('customer.pembayaran.index');
     Route::post('/customer/pembayaran/pesanan/{pesanan}', [CustomerPembayaranController::class, 'store'])->name('customer.pembayaran.store');
